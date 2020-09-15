@@ -16,7 +16,7 @@ import static spark.Spark.*;
 
 public class App {
 
-    static int getHerokuAssignedPort() {
+    /*static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
@@ -45,10 +45,23 @@ public class App {
 
         return Jdbi.create(defualtJdbcUrl);
 
-    }
+    }*/
+
+
 
     public static void main(String[] args) {
-        try  {
+
+        // root is 'src/main/resources', so put files in 'src/main/resources/public'
+        staticFiles.location("/public"); // Static files
+
+        get("/", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "patient.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        /*try  {
 
 
             staticFiles.location("/public");
@@ -97,7 +110,7 @@ public class App {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
 
     }
 }
