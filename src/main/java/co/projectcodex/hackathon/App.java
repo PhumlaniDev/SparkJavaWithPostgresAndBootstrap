@@ -54,7 +54,7 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=macgyver&password=mac123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=codex&password=123");
 
 
             get("/", (req, res) -> {
@@ -73,7 +73,7 @@ public class App {
                 map.put("theGraphLabel", "The graph label");
                 map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
 
-                return new ModelAndView(map, "index.handlebars");
+                return new ModelAndView(map, "patient.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
