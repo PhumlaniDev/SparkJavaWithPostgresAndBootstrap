@@ -26,7 +26,7 @@ public class App {
         return 4567;
     }
 
-    /*static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
+    static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         String database_url = processBuilder.environment().get("DATABASE_URL");
         if (database_url != null) {
@@ -47,7 +47,7 @@ public class App {
 
         return Jdbi.create(defualtJdbcUrl);
 
-    }*/
+    }
 
     public static void main(String[] args) {
 
