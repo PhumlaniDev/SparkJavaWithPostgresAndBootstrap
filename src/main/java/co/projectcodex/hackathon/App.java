@@ -61,7 +61,7 @@ public class App {
         get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "edoctor.handlebars");
+            return new ModelAndView(map, "epharmacy.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
@@ -79,7 +79,7 @@ public class App {
 
 
 
-                return new ModelAndView(map, "pharmacist.handlebars");
+                return new ModelAndView(map, "epharmacy.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
