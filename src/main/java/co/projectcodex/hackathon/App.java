@@ -1,9 +1,5 @@
 package co.projectcodex.hackathon;
 
-import java.sql.ResultSet;
-import java.util.Date;
-import java.util.List;
-
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -51,14 +47,28 @@ public class App {
 
     public static void main(String[] args) {
 
-        /*get("/", (req, res) -> {
+        get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
 
-        }, new HandlebarsTemplateEngine());*/
+        }, new HandlebarsTemplateEngine());
 
-        get("/", (req, res) -> {
+        get("/eDoctor", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        get("/ePatient", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "epatient.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        get("/ePharmacy", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "epharmacy.handlebars");
