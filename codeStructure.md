@@ -9,4 +9,5 @@ patient.handlebars
 
 
 Sesethu is working on ```get("/epharmacy```
+alongside pharmacy.handlebars
 

@@ -1,5 +1,6 @@
 package co.projectcodex.hackathon;
 
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +56,18 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=codex&password=123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=sesethu&password=coder123");
+
+            get("/epharmacy", (req, res) -> {
+
+                Map<String, Object> map = new HashMap<>();
+
+
+
+                return new ModelAndView(map, "pharmacist.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
 
 
             get("/", (req, res) -> {

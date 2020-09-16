@@ -12,18 +12,40 @@
 </head>
 <body>
 <h1>ePharmacy</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-           Prescription owner
-        </div>
-        <div class="col-sm">
-            Prescription Details
-        </div>
-        <div class="col-sm">
-            Doctor
-        </div>
+
+<div class="row">
+    <div class="col-6">
+
+    <div class="col-6">
+        <h2>Names</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Patient name</th>
+                <th>Prescription body</th>
+                <th>Doctor</th>
+            </tr>
+            </thead>
+            {{#each people}}
+                <tr>
+                    <td>{{patient_name}}</td>
+                    <td>{{prescription_txt}}</td>
+                    <td>{{doctor}}</td>
+                </tr>
+            {{/each}}
+        </table>
     </div>
+</div>
+
+<hr>
+
+<!--{{> footer.handlebars}}-->
+
+<hr>
+
+<div class="row" >
+
+
 </div>
 
 <!-- Optional JavaScript -->
