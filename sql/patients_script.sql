@@ -1,0 +1,6 @@
+-- CREATE TABLE IF NOT EXISTS patient_request (
+--  id SERIAL PRIMARY KEY NOT NULL,
+--  doc_name TEXT,
+--  priorityLevel TEXT,
+--  date TEXT
+--);

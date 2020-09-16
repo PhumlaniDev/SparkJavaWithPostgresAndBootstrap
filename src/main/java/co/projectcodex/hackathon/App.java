@@ -1,5 +1,6 @@
 package co.projectcodex.hackathon;
 
+import java.util.Date;
 import java.util.List;
 
 import org.jdbi.v3.core.Jdbi;
@@ -89,6 +90,55 @@ public class App {
                             firstName,
                             lastName,
                             email);
+                });
+
+                res.redirect("/");
+                return "";
+            });
+
+            get("/patient_request", (req, res) -> {
+
+                List<Person> patientRequest = jdbi.withHandle((h) -> {
+                    List<Person> thePeople = h.createQuery("select docName, priorityLevel, date from patient_request")
+                            .mapToBean(Person.class)
+                            .list();
+                    return thePeople;
+                });
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("patientRequest", patientRequest);
+                map.put("data", "[2, 19, 3, 5, 2, 23]");
+                map.put("theGraphLabel", "The graph label");
+                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "patient.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+                post("/patient_request", (req, res) -> {
+
+                String docName = req.queryParams("docName");
+                String priorityLevel = req.queryParams("priorityLevel");
+//                String date = req.queryParams("date");
+
+                Date date1 = new Date();
+
+//                if(priorityLevel.equals("low")){
+//                    priorityLevel = "Low" ;
+//                }
+//                else if (priorityLevel.equals("medium")) {
+//                    priorityLevel = "Medium";
+//                }
+//                else if (priorityLevel.equals("high")) {
+//                    priorityLevel = "High";
+//                }
+
+                jdbi.useHandle(h -> {
+                    h.execute("insert into patient_request (doc_name, priorityLevel, date) values (?, ?, ?)",
+                            docName,
+                            priorityLevel,
+                            date1);
                 });
 
                 res.redirect("/");
