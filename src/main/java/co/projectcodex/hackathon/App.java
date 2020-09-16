@@ -25,7 +25,7 @@ public class App {
         return 4567;
     }
 
-    static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
+    /*static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         String database_url = processBuilder.environment().get("DATABASE_URL");
         if (database_url != null) {
@@ -46,10 +46,25 @@ public class App {
 
         return Jdbi.create(defualtJdbcUrl);
 
-    }
+    }*/
 
     public static void main(String[] args) {
-        try  {
+
+        /*get("/", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "elogin.handlebars");
+
+        }, new HandlebarsTemplateEngine());*/
+
+        get("/", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        /*try  {
 
 
             staticFiles.location("/public");
@@ -74,7 +89,7 @@ public class App {
                 map.put("theGraphLabel", "The graph label");
                 map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
 
-                return new ModelAndView(map, "patient.handlebars");
+                return new ModelAndView(map, "epatient.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
@@ -111,7 +126,7 @@ public class App {
                 map.put("theGraphLabel", "The graph label");
                 map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
 
-                return new ModelAndView(map, "patient.handlebars");
+                return new ModelAndView(map, "epatient.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
@@ -147,7 +162,7 @@ public class App {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
 
     }
 }
