@@ -1,5 +1,6 @@
 package co.projectcodex.hackathon;
 
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -8,6 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -45,9 +47,17 @@ public class App {
 
     }
 
-    public static void main(String[] args) {
+    static final String KOANS_DATABASE_URL = "jdbc:postgresql:spark_hbs_jdbi?username=macgyver&password=mac123";
+
+
+    public static void main(String[] args) throws URISyntaxException, SQLException {
 
         port(getHerokuAssignedPort());
+
+        Jdbi jdbi = getJdbiDatabaseConnection(KOANS_DATABASE_URL);
+
+        // get a handle to the database
+        Handle handle = jdbi.open();
 
         get("/", (req, res) -> {
 
@@ -64,6 +74,10 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         get("/eDoctor", (req, res) -> {
+
+            List<String> appointments = handle.createQuery("select * from appointments")
+                    .mapTo(String.class)
+                    .list();
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "edoctor.handlebars");
