@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -47,35 +48,68 @@ public class App {
 
     public static void main(String[] args) {
 
+
+        staticFiles.location("/public");
         port(getHerokuAssignedPort());
+        try {
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=sesethu&password=coder123");
 
-        get("/", (req, res) -> {
+            get("/", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "elogin.handlebars");
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "elogin.handlebars");
 
-        }, new HandlebarsTemplateEngine());
+            }, new HandlebarsTemplateEngine());
 
-        get("/eDoctor", (req, res) -> {
+            get("/eDoctor", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "edoctor.handlebars");
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "edoctor.handlebars");
 
-        }, new HandlebarsTemplateEngine());
+            }, new HandlebarsTemplateEngine());
 
-        get("/ePatient", (req, res) -> {
+            get("/ePatient", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "patient.handlebars");
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "patient.handlebars");
 
-        }, new HandlebarsTemplateEngine());
+            }, new HandlebarsTemplateEngine());
 
-        get("/ePharmacy", (req, res) -> {
+            get("/ePharmacy", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epharmacy.handlebars");
-pu
-        }, new HandlebarsTemplateEngine());
+                List<Person> fullName = jdbi.withHandle((h) ->{
+                   List<Person> theName= h.createQuery("select firstName,lastName from patients").mapToBean(Person.class).list();
+
+                    return theName;
+
+                });
+
+
+                List<Person> prescriptionBody = jdbi.withHandle((h) ->{
+                    List<Person> prescription= h.createQuery("select prescription_txt from prescriptions").mapToBean(Person.class).list();
+
+                    return prescription;
+
+                });
+
+
+                List<Person> doctorWhoGavePrescription = jdbi.withHandle((h) ->{
+                    List<Person> prescriptionIssuedBy= h.createQuery("select doctor").mapToBean(Person.class).list();
+
+                    return prescriptionIssuedBy;
+
+                });
+
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("fullName",fullName);
+                map.put("prescription",prescriptionBody);
+                map.put("doctorWhoGavePrescription",doctorWhoGavePrescription);
+
+
+                return new ModelAndView(map, "epharmacy.handlebars");
+
+            }, new HandlebarsTemplateEngine());
 
 
         /*try  {
@@ -185,9 +219,10 @@ pu
                 return "";
             });
 
-        } catch (Exception ex) {
+        } */
+        }catch (Exception ex) {
             ex.printStackTrace();
-        }*/
+        }
 
     }
 }
