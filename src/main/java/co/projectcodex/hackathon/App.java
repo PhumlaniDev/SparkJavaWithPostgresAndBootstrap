@@ -49,104 +49,120 @@ public class App {
 
         port(getHerokuAssignedPort());
 
+
         Map<String, Object> appointmentsMap = new HashMap<>();
+        Map<String, Object> prescriptionMap = new HashMap<>();
 
-        /*get("/", (req, res) -> {
+        try {
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi");
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "elogin.handlebars");
+            get("/", (req, res) -> {
 
-        }, new HandlebarsTemplateEngine());*/
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "elogin.handlebars");
 
-        get("/", (req, res) -> {
+            }, new HandlebarsTemplateEngine());
 
-            String firstName = req.queryParams("firstName");
-            String lastName = req.queryParams("lastName");
-            String docName = req.queryParams("docName");
-            String location = req.queryParams("location");
+            get("/eDoctor", (req, res) -> {
 
+                String firstName = req.queryParams("firstName");
+                String lastName = req.queryParams("lastName");
+                String docName = req.queryParams("docName");
+                String location = req.queryParams("location");
 
+                appointmentsMap.get(firstName);
+                appointmentsMap.get(lastName);
+                appointmentsMap.get(docName);
+                appointmentsMap.get(location);
 
-            appointmentsMap.get(firstName);
-            appointmentsMap.get(lastName);
-            appointmentsMap.get(docName);
-            appointmentsMap.get(location);
+                return new ModelAndView(appointmentsMap, "edoctor.handlebars");
 
-            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
+            }, new HandlebarsTemplateEngine());
 
-        }, new HandlebarsTemplateEngine());
+            post("/eDoctor", (req, res) -> {
 
-        post("/eDoctor", (req, res) -> {
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "edoctor.handlebars");
+                prescriptionMap.put("firstName", patient_name);
+                prescriptionMap.put("lastName", medicine_name);
+                prescriptionMap.put("docName", doctors_name);
 
-        }, new HandlebarsTemplateEngine());
+                return new ModelAndView(prescriptionMap, "edoctor.handlebars");
 
-        get("/ePatient", (req, res) -> {
+            }, new HandlebarsTemplateEngine());
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epatient.handlebars");
+            get("/ePatient", (req, res) -> {
 
-        }, new HandlebarsTemplateEngine());
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "epatient.handlebars");
 
-        post("/ePatient", (req, res) -> {
+            }, new HandlebarsTemplateEngine());
 
-
-            String firstName = req.queryParams("firstName");
-            String lastName = req.queryParams("lastName");
-            String docName = req.queryParams("docName");
-            String location = req.queryParams("location");
-
-
-
-            appointmentsMap.put("firstName", firstName);
-            appointmentsMap.put("lastName", lastName);
-            appointmentsMap.put("docName", docName);
-            appointmentsMap.put("location", location);
-
-            return new ModelAndView(appointmentsMap, "epatient.handlebars");
+            post("/ePatient", (req, res) -> {
 
 
-        }, new HandlebarsTemplateEngine());
+                String firstName = req.queryParams("firstName");
+                String lastName = req.queryParams("lastName");
+                String docName = req.queryParams("docName");
+                String location = req.queryParams("location");
 
-        get("/ePharmacy", (req, res) -> {
+                appointmentsMap.put("firstName", firstName);
+                appointmentsMap.put("lastName", lastName);
+                appointmentsMap.put("docName", docName);
+                appointmentsMap.put("location", location);
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epharmacy.handlebars");
+                return new ModelAndView(appointmentsMap, "epatient.handlebars");
 
-        }, new HandlebarsTemplateEngine());
 
-        post("/Login", (req, res) -> {
+            }, new HandlebarsTemplateEngine());
 
-            // create the greeting message
-            String role = req.queryParams("role");
+            get("/ePharmacy", (req, res) -> {
 
-            if (!role.isEmpty()){
-                switch (role) {
-                    case "eDoctor":
-                        res.redirect("/eDoctor");
-                        break;
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
 
-                    case "ePatient":
-                        res.redirect("/ePatient");
-                        break;
+                prescriptionMap.put("medicine_name",medicine_name);
+                prescriptionMap.put("patient_name",patient_name);
+                prescriptionMap.put( "doctors_name",doctors_name);
 
-                    case "ePharmacy":
-                        res.redirect("/ePharmacy");
-                        break;
+                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
 
-                    default:
-                        break;
+            }, new HandlebarsTemplateEngine());
+
+            post("/eLogin", (req, res) -> {
+
+                // create the greeting message
+                String role = req.queryParams("role");
+
+                if (!role.isEmpty()){
+                    switch (role) {
+                        case "eDoctor":
+                            res.redirect("/eDoctor");
+                            break;
+
+                        case "ePatient":
+                            res.redirect("/ePatient");
+                            break;
+
+                        case "ePharmacy":
+                            res.redirect("/ePharmacy");
+                            break;
+
+                        default:
+                            break;
+                    }
                 }
-            }
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "elogin.handlebars");
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "elogin.handlebars");
 
-        }, new HandlebarsTemplateEngine());
-
-
+            }, new HandlebarsTemplateEngine());
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }
