@@ -69,6 +69,7 @@
                 </div>
                 <div class="col-sm">
                     <div class="col-6">
+                        <br>
                         <h5>Requested</h5>
                         <table class="table">
                             <thead>
@@ -88,7 +89,6 @@
                         </table>
                         <br><br>
                         <button type="button" class="btn btn-success">Accept</button>
-                        <button type="button" class="btn btn-danger">Decline</button>
                     </div>
                 </div>
             </div>
@@ -97,11 +97,14 @@
     <div class="tab-pane fade show" id="nav-prescription" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="container">
             <br>
-            <form action="/hello" method="post">
-                <input type="text" name="name" placeholder="Enter a patient's name">
+            <form action="/ePharmacy" method="post">
+                <input type="text" name="patient_name" placeholder="Enter a patient's name">
                 <br>
                 <br>
-                <input type="text" name="name" placeholder="Enter a patient's medication">
+                <input type="text" name="medicine_name" placeholder="Enter a patient's medication">
+                <br>
+                <br>
+                <input type="text" name="doctors_name" placeholder="Enter a doctor's name">
                 <br>
                 <br>
                 <button type="submit" class="btn btn-primary">Prescribe</button>
