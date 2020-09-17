@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style>
         .h4 ,h4{
         text-align: center;
         font-size: 4.5em;
         text-shadow: 2px 2px green;
         }
+
     </style>
     <title>eHealth Care System</title>
 </head>
@@ -22,49 +24,50 @@
 </div>
 
 
-
 <div class="row">
     <div class="col-6">
 
-    <div class="col-6">
-        <h2>Names</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Patient name</th>
-                <th>Prescription body</th>
-                <th>Doctor</th>
-            </tr>
-            </thead>
-            {{#each people}}
+        <div class="col-6">
+            <h2>Names</h2>
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>{{patient_name}}</td>
-                    <td>{{prescription_txt}}</td>
-                    <td>{{doctor}}</td>
+                    <th>Patient name</th>
+                    <th>Prescription body</th>
+                    <th>Doctor</th>
                 </tr>
-            {{/each}}
-        </table>
+                </thead>
+                {{#each people}}
+                    <tr>
+                        <td>{{patient_name}}</td>
+                        <td>{{prescription_txt}}</td>
+                        <td>{{doctor}}</td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
     </div>
-</div>
-<<<<<<< HEAD
 
-<hr>
+    <hr>
 
 
-<hr>
+    <hr>
 
-<div class="row" >
+    <div class="row">
 
+        <div class="row"></div>
+    </div>
 
-=======
-    <div class="row" ></div>
->>>>>>> b9ab720d5b8f497335b1f27b4884bb6d1b9d1a2c
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
 </body>
 </html>
