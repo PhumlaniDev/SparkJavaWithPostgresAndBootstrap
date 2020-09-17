@@ -7,7 +7,9 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -49,6 +51,7 @@ public class App {
 
         port(getHerokuAssignedPort());
 
+        List<Prescription> prescriptionList = new ArrayList<>();
         Map<String, Object> appointmentsMap = new HashMap<>();
         Map<String, Object> prescriptionMap = new HashMap<>();
 
@@ -119,9 +122,31 @@ public class App {
 
             get("/ePharmacy", (req, res) -> {
 
-                Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "epharmacy.handlebars");
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
 
+                prescriptionMap.get(patient_name);
+                prescriptionMap.get(medicine_name);
+                prescriptionMap.get(doctors_name);
+
+                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
+            }, new HandlebarsTemplateEngine());
+            post("/ePharmacy", (req, res) -> {
+
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
+
+                prescriptionList.add(new Prescription(patient_name, doctors_name, medicine_name));
+//                map.put("people", people);
+
+                System.out.println(req.body());
+                prescriptionMap.put("prescriptions", prescriptionList);
+//                prescriptionMap.put("medicine_name",medicine_name);
+//                prescriptionMap.put("doctors_name",doctors_name);
+
+                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
             }, new HandlebarsTemplateEngine());
 
 
@@ -166,6 +191,26 @@ public class App {
                 return new ModelAndView(map, "elogin.handlebars");
 
             }, new HandlebarsTemplateEngine());
+
+            get("/graph", (req, res) -> {
+
+//                List<Person> people = jdbi.withHandle((h) -> {
+//                    List<Person> thePeople = h.createQuery("select first_name, last_name, email from users")
+//                            .mapToBean(Person.class)
+//                            .list();
+//                    return thePeople;
+//                });
+
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("data", "[5, 2, 12]");
+                map.put("theGraphLabel", "The graph label");
+                map.put("labels", "['Medium', 'Low', 'High']");
+
+                return new ModelAndView(map, "graph.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
