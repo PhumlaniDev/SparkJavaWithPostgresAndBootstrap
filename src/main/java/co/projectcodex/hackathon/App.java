@@ -77,6 +77,39 @@ public class App {
 
         }, new HandlebarsTemplateEngine());
 
+        post("/eLogin", (req, res) -> {
+
+            // create the greeting message
+            String lang = req.queryParams("language");
+
+            if (!lang.isEmpty()){
+                switch (lang) {
+                    case "IsiXhosa":
+
+                        break;
+
+                    case "English":
+
+                        break;
+
+                    case "TshiVenda":
+
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+
+
+
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "elogin.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
 
         /*try  {
 
