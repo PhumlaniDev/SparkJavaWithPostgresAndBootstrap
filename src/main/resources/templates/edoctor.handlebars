@@ -27,90 +27,103 @@
         font-size: 4.5em;
         text-shadow: 2px 2px red;
         }
+
+        .heading{
+        text-align: center;
+        padding: 2rem;
+        margin-bottom: 1rem;
+        background-color: #7ac8ee;
+        border-radius: .3rem;
+        }
+
     </style>
 
     <title>eHealth Care System</title>
 </head>
 <body>
-<div class="jumbotron text-center">
+<div class="heading">
     <h4>eDoctor</h4>
 </div>
 
-<!--tablayout-->
+<div>
+    <!--tablayout-->
 
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-appointments" role="tab"
-           aria-controls="nav-home" aria-selected="true">Appointments</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-prescription" role="tab"
-           aria-controls="nav-profile" aria-selected="false">Prescriptions</a>
-    </div>
-</nav>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-appointments" role="tab"
+               aria-controls="nav-home" aria-selected="true">Appointments</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-prescription" role="tab"
+               aria-controls="nav-profile" aria-selected="false">Prescriptions</a>
+        </div>
+    </nav>
 
-<!--grid-->
+    <!--grid-->
 
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-appointments" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <br>
-                    <h5>Approved</h5>
-                    <br>
-                    <div id="list">
-                        <ul>
-                            {{#each users}}
-                                <li>{{this}}</li>
-                            {{/each}}
-                        </ul>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-appointments" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
                         <br>
+                        <h5>Approved</h5>
                         <br>
+                        <div id="list">
+                            <ul>
+                                {{#each users}}
+                                    <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                            <br>
+                            <br>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm">
-                    <div class="col-6">
+                    <div class="col-sm">
                         <br>
                         <h5>Requested</h5>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>First name</th>
-                                <th>Last name</th>
-                                <th>Doctor</th>
-                                <th>Location</th>
-                            </tr>
-                            </thead>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Doctor</th>
+                                    <th>Location</th>
+                                </tr>
+                                </thead>
                                 <tr>
                                     <td>{{firstName}}</td>
                                     <td>{{lastName}}</td>
                                     <td>{{docName}}</td>
                                     <td>{{location}}</td>
                                 </tr>
-                        </table>
+                            </table>
+                        </div>
                         <br><br>
                     </div>
+
                 </div>
             </div>
         </div>
-    </div>
-    <div class="tab-pane fade show" id="nav-prescription" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <div class="container">
-            <br>
-            <form action="/ePharmacy" method="post">
-                <input type="text" name="patient_name" placeholder="Enter a patient's name">
+        <div class="tab-pane fade show" id="nav-prescription" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="container">
                 <br>
+                <form action="/ePharmacy" method="post">
+                    <input type="text" name="patient_name" placeholder="Enter a patient's name">
+                    <br>
+                    <br>
+                    <input type="text" name="medicine_name" placeholder="Enter a patient's medication">
+                    <br>
+                    <br>
+                    <input type="text" name="doctors_name" placeholder="Enter a doctor's name">
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Prescribe</button>
+                </form>
                 <br>
-                <input type="text" name="medicine_name" placeholder="Enter a patient's medication">
-                <br>
-                <br>
-                <input type="text" name="doctors_name" placeholder="Enter a doctor's name">
-                <br>
-                <br>
-                <button type="submit" class="btn btn-primary">Prescribe</button>
-            </form>
-            <br>
+            </div>
         </div>
     </div>
+
 </div>
 
 </body>
