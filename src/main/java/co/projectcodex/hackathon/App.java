@@ -51,20 +51,19 @@ public class App {
 
         Map<String, Object> appointmentsMap = new HashMap<>();
 
-        /*get("/", (req, res) -> {
+        get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
 
-        }, new HandlebarsTemplateEngine());*/
+        }, new HandlebarsTemplateEngine());
 
-        get("/", (req, res) -> {
+        post("/eDoctor", (req, res) -> {
 
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
             String docName = req.queryParams("docName");
             String location = req.queryParams("location");
-
 
 
             appointmentsMap.get(firstName);
@@ -76,7 +75,7 @@ public class App {
 
         }, new HandlebarsTemplateEngine());
 
-        post("/eDoctor", (req, res) -> {
+        get("/eDoctor", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "edoctor.handlebars");
@@ -85,19 +84,10 @@ public class App {
 
         get("/ePatient", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epatient.handlebars");
-
-        }, new HandlebarsTemplateEngine());
-
-        post("/ePatient", (req, res) -> {
-
-
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
             String docName = req.queryParams("docName");
             String location = req.queryParams("location");
-
 
 
             appointmentsMap.put("firstName", firstName);
@@ -106,6 +96,12 @@ public class App {
             appointmentsMap.put("location", location);
 
             return new ModelAndView(appointmentsMap, "epatient.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/ePatient", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "epatient.handlebars");
 
 
         }, new HandlebarsTemplateEngine());
