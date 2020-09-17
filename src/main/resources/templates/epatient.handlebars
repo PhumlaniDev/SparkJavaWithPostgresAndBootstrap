@@ -35,14 +35,12 @@
                     <thead>
                     <tr>
                         <th>Doctor</th>
-                        <!--                        <th>Priority</th>-->
                         <th>Date</th>
                     </tr>
                     </thead>
                     {{#each people}}
                         <tr>
                             <td>{{firstName}}</td>
-                            <!--                            <td>{{priorityLevel}}</td>-->
                             <td>{{date}}</td>
                         </tr>
                     {{/each}}
@@ -51,7 +49,7 @@
 
             <h2>Request Appointment</h2>
             <br>
-            <form method="post" action="/eDoctor">
+            <form method="post" action="/ePatient">
                     <div class="form-group">
                         <label for="exampleInputEmail1">First name</label>
                         <input type="text" class="form-control {{requests}}" name="firstName">
@@ -83,13 +81,6 @@
                 </form>
         </div>
     </div>
-<<<<<<< HEAD
-
-    <hr>
-    <hr>
-
-=======
->>>>>>> 06fbc9f53d90eed4667d3aff9bfacab9e9532efd
 </div>
 
 <!-- Optional JavaScript -->

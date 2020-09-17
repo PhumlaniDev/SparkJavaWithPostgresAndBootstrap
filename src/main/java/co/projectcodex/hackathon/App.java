@@ -120,9 +120,31 @@ public class App {
 
             get("/ePharmacy", (req, res) -> {
 
-                Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "epharmacy.handlebars");
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
 
+                prescriptionMap.get(patient_name);
+                prescriptionMap.get(medicine_name);
+                prescriptionMap.get(doctors_name);
+
+                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
+            }, new HandlebarsTemplateEngine());
+            post("/ePharmacy", (req, res) -> {
+
+                String patient_name = req.queryParams("patient_name");
+                String medicine_name = req.queryParams("medicine_name");
+                String doctors_name = req.queryParams("doctors_name");
+
+                System.out.println(patient_name);
+
+
+                System.out.println(req.body());
+                prescriptionMap.put("patient_name",patient_name);
+                prescriptionMap.put("medicine_name",medicine_name);
+                prescriptionMap.put("doctors_name",doctors_name);
+
+                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
             }, new HandlebarsTemplateEngine());
 
             post("/eLogin", (req, res) -> {
