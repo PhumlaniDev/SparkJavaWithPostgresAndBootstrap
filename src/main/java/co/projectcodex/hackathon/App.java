@@ -67,6 +67,21 @@ public class App {
 
         post("/eDoctor", (req, res) -> {
 
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        get("/ePatient", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "epatient.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/ePatient", (req, res) -> {
+
+
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
             String docName = req.queryParams("docName");
@@ -79,15 +94,8 @@ public class App {
             appointmentsMap.put("docName", docName);
             appointmentsMap.put("location", location);
 
-            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
+            return new ModelAndView(appointmentsMap, "epatient.handlebars");
 
-
-        }, new HandlebarsTemplateEngine());
-
-        get("/ePatient", (req, res) -> {
-
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epatient.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
