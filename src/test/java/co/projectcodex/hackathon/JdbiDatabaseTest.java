@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JdbiDatabaseTest {
-    Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost/spark_hbs_jdbi");
+    /*Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost/spark_hbs_jdbi");
     @BeforeEach
     void beforeEach() {
         jdbi.withHandle(h -> {
@@ -81,6 +81,6 @@ public class JdbiDatabaseTest {
         assertEquals("Name three", people.get(1).getFirstName());
         assertEquals("LastName three", people.get(1).getLastName());
     }
-
+*/
 
     }

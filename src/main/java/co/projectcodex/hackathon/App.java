@@ -47,6 +47,8 @@ public class App {
 
     public static void main(String[] args) {
 
+        port(getHerokuAssignedPort());
+
         get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
@@ -74,6 +76,7 @@ public class App {
             return new ModelAndView(map, "epharmacy.handlebars");
 
         }, new HandlebarsTemplateEngine());
+
 
         /*try  {
 
