@@ -1,7 +1,6 @@
  create table prescriptions(
 	prescription_id serial not null primary key,
-	doctors_id int not null,
+	appointments_id int not null,
 	medicine_name text,
-	doctors_name text,
-	foreign key (doctors_id) references doctors(doctors_id)
+	foreign key (appointments_id) references appointments(appointments_id)
 );

@@ -49,8 +49,6 @@ public class App {
 
         port(getHerokuAssignedPort());
 
-        Map<String, Object> appointmentsMap = new HashMap<>();
-
         get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
@@ -58,27 +56,16 @@ public class App {
 
         }, new HandlebarsTemplateEngine());
 
-        post("/eDoctor", (req, res) -> {
-            String firstName = req.queryParams("firstName");
-            String lastName = req.queryParams("lastName");
-            String docName = req.queryParams("docName");
-            String location = req.queryParams("location");
+        get("/eDoctor", (req, res) -> {
 
-
-
-            appointmentsMap.put("firstname", firstName);
-            appointmentsMap.put("lastName", lastName);
-            appointmentsMap.put("docName", docName);
-            appointmentsMap.put("location", location);
-
-            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "edoctor.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
         get("/ePatient", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
-
             return new ModelAndView(map, "epatient.handlebars");
 
         }, new HandlebarsTemplateEngine());
@@ -122,8 +109,6 @@ public class App {
             return new ModelAndView(map, "elogin.handlebars");
 
         }, new HandlebarsTemplateEngine());
-
-
 
 
         /*try  {
