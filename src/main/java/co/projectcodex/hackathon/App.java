@@ -120,15 +120,8 @@ public class App {
 
             get("/ePharmacy", (req, res) -> {
 
-                String patient_name = req.queryParams("patient_name");
-                String medicine_name = req.queryParams("medicine_name");
-                String doctors_name = req.queryParams("doctors_name");
-
-                prescriptionMap.put("medicine_name",medicine_name);
-                prescriptionMap.put("patient_name",patient_name);
-                prescriptionMap.put( "doctors_name",doctors_name);
-
-                return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "epharmacy.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
@@ -163,6 +156,7 @@ public class App {
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
+
 
     }
 }
