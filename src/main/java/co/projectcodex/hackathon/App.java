@@ -64,7 +64,7 @@ public class App {
         get("/ePatient", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "epatient.handlebars");
+            return new ModelAndView(map, "patient.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
