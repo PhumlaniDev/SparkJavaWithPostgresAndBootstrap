@@ -49,10 +49,17 @@ public class App {
 
         port(getHerokuAssignedPort());
 
-        get("/eLogin", (req, res) -> {
+        get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/eDoctor", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "eDoctor.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
