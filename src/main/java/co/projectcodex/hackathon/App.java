@@ -49,8 +49,10 @@ public class App {
     public static void main(String[] args) {
 
         port(getHerokuAssignedPort());
+        Map <String,Object> appointmentsMap= new HashMap<>();
 
-        Map<String, Object> appointmentsMap = new HashMap<>();
+            try{
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi");
 
         /*get("/", (req, res) -> {
 
@@ -112,74 +114,77 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        post("/ePharmacy", (req, res) -> {
+        get("/ePharmacy", (req, res) -> {
 
-            List<Person> fullName = jdbi.withHandle((h) ->{
-                List<Person> theName= h.createQuery("select firstName,lastName from patients").mapToBean(Person.class).list();
+                    List<Person> fullName = jdbi.withHandle((h) -> {
+                        List<Person> theName = h.createQuery("select firstName,lastName from patients").mapToBean(Person.class).list();
 
-                return theName;
+                        return theName;
 
-            });
-
-
-            List<Person> prescriptionBody = jdbi.withHandle((h) ->{
-                List<Person> prescription= h.createQuery("select prescription_txt from prescriptions").mapToBean(Person.class).list();
-
-                return prescription;
-
-            });
+                    });
 
 
-            List<Person> doctorWhoGavePrescription = jdbi.withHandle((h) ->{
-                List<Person> prescriptionIssuedBy= h.createQuery("select doctors_name from doctors" +
-                        "join prescriptions on doctors.doctors_id=prescription.doctors_id" +
-                        "join doctors on prescriptions.doctors_id=doctors.doctors_id"
-                ).mapToBean(Person.class).list();
+                    List<Person> prescriptionBody = jdbi.withHandle((h) -> {
+                        List<Person> prescription = h.createQuery("select prescription_txt from prescriptions").mapToBean(Person.class).list();
 
-                return prescriptionIssuedBy;
+                        return prescription;
 
-            });
+                    });
 
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("fullName",fullName);
-            map.put("prescription",prescriptionBody);
-            map.put("doctorWhoGavePrescription",doctorWhoGavePrescription);
+                    List<Person> doctorWhoGavePrescription = jdbi.withHandle((h) -> {
+                        List<Person> prescriptionIssuedBy = h.createQuery("select doctors_name from doctors" +
+                                "join prescriptions on doctors.doctors_id=prescription.doctors_id" +
+                                "join doctors on prescriptions.doctors_id=doctors.doctors_id"
+                        ).mapToBean(Person.class).list();
+
+                        return prescriptionIssuedBy;
+
+                    });
 
 
-            return new ModelAndView(map, "epharmacy.handlebars");
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("fullName", fullName);
+                    map.put("prescription", prescriptionBody);
+                    map.put("doctorWhoGavePrescription", doctorWhoGavePrescription);
 
 
+                    return new ModelAndView(map, "epharmacy.handlebars");
+                });
+
+            post("/eLogin", (req, res) -> {
 
 
-        post("/Login", (req, res) -> {
+                // create the greeting message
+                String role = req.queryParams("role");
 
-            }
-            // create the greeting message
-            String role = req.queryParams("role");
+                if (!role.isEmpty()) {
+                    switch (role) {
+                        case "eDoctor":
+                            res.redirect("/eDoctor");
+                            break;
 
-            if (!role.isEmpty()){
-                switch (role) {
-                    case "eDoctor":
-                        res.redirect("/eDoctor");
-                        break;
+                        case "ePatient":
+                            res.redirect("/ePatient");
+                            break;
 
-                    case "ePatient":
-                        res.redirect("/ePatient");
-                        break;
+                        case "ePharmacy":
+                            res.redirect("/ePharmacy");
+                            break;
 
-                    case "ePharmacy":
-                        res.redirect("/ePharmacy");
-                        break;
-
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
+
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "elogin.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+        }catch (Exception err){
+                err.printStackTrace();
             }
-
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "elogin.handlebars");
-
-        }, new HandlebarsTemplateEngine());
-    }
+}
 }
