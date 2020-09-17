@@ -1,4 +1,4 @@
-create table prescriptions(
+ create table prescriptions(
 	prescription_id serial not null primary key,
 	doctors_id int not null,
 	medicine_name text,
