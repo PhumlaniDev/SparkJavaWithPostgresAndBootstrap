@@ -123,9 +123,6 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
-
-
-
             post("/eLogin", (req, res) -> {
 
                 // create the greeting message
@@ -154,7 +151,6 @@ public class App {
                 return new ModelAndView(map, "elogin.handlebars");
 
             }, new HandlebarsTemplateEngine());
-
 
         }
         catch (Exception ex) {
