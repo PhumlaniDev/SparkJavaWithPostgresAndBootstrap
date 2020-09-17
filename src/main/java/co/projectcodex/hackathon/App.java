@@ -83,6 +83,7 @@ public class App {
 
                 String patient_name = req.queryParams("patient_name");
                 String medicine_name = req.queryParams("medicine_name");
+
                 String doctors_name = req.queryParams("doctors_name");
 
                 prescriptionMap.put("firstName", patient_name);
