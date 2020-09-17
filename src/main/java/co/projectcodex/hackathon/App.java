@@ -49,7 +49,7 @@ public class App {
 
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> {
+        get("/eLogin", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
@@ -80,26 +80,26 @@ public class App {
         post("/eLogin", (req, res) -> {
 
             // create the greeting message
-            String lang = req.queryParams("language");
+            String role = req.queryParams("role");
 
-            if (!lang.isEmpty()){
-                switch (lang) {
-                    case "IsiXhosa":
 
+                switch (role) {
+                    case "eDoctor":
+                        res.redirect("/eDoctor");
                         break;
 
-                    case "English":
-
+                    case "ePatient":
+                        res.redirect("/ePatient");
                         break;
 
-                    case "TshiVenda":
-
+                    case "ePharmacy":
+                        res.redirect("/ePharmacy");
                         break;
 
                     default:
                         break;
                 }
-            }
+
 
 
 
