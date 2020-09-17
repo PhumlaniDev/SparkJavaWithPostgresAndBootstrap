@@ -51,17 +51,28 @@ public class App {
 
         Map<String, Object> appointmentsMap = new HashMap<>();
 
-        get("/", (req, res) -> {
+        /*get("/", (req, res) -> {
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
 
-        }, new HandlebarsTemplateEngine());
+        }, new HandlebarsTemplateEngine());*/
 
-        get("/eDoctor", (req, res) -> {
+        get("/", (req, res) -> {
 
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "edoctor.handlebars");
+            String firstName = req.queryParams("firstName");
+            String lastName = req.queryParams("lastName");
+            String docName = req.queryParams("docName");
+            String location = req.queryParams("location");
+
+
+
+            appointmentsMap.get(firstName);
+            appointmentsMap.get(lastName);
+            appointmentsMap.get(docName);
+            appointmentsMap.get(location);
+
+            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
 
         }, new HandlebarsTemplateEngine());
 
@@ -74,7 +85,7 @@ public class App {
 
 
 
-            appointmentsMap.put("firstname", firstName);
+            appointmentsMap.put("firstName", firstName);
             appointmentsMap.put("lastName", lastName);
             appointmentsMap.put("docName", docName);
             appointmentsMap.put("location", location);
@@ -98,33 +109,29 @@ public class App {
 
         }, new HandlebarsTemplateEngine());
 
-        post("/eLogin", (req, res) -> {
+        post("/Login", (req, res) -> {
 
             // create the greeting message
-            String lang = req.queryParams("language");
+            String role = req.queryParams("role");
 
-            if (!lang.isEmpty()){
-                switch (lang) {
-                    case "IsiXhosa":
-
+            if (!role.isEmpty()){
+                switch (role) {
+                    case "eDoctor":
+                        res.redirect("/eDoctor");
                         break;
 
-                    case "English":
-
+                    case "ePatient":
+                        res.redirect("/ePatient");
                         break;
 
-                    case "TshiVenda":
-
+                    case "ePharmacy":
+                        res.redirect("/ePharmacy");
                         break;
 
                     default:
                         break;
                 }
             }
-
-
-
-
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "elogin.handlebars");
