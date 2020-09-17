@@ -7,7 +7,9 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -49,6 +51,8 @@ public class App {
 
         port(getHerokuAssignedPort());
 
+
+        List<Prescription> prescriptionList = new ArrayList<Prescription>();
 
         Map<String, Object> appointmentsMap = new HashMap<>();
         Map<String, Object> prescriptionMap = new HashMap<>();
@@ -136,13 +140,12 @@ public class App {
                 String medicine_name = req.queryParams("medicine_name");
                 String doctors_name = req.queryParams("doctors_name");
 
-                System.out.println(patient_name);
-
+                prescriptionList.add(new Prescription(patient_name, doctors_name, medicine_name));
 
                 System.out.println(req.body());
-                prescriptionMap.put("patient_name",patient_name);
-                prescriptionMap.put("medicine_name",medicine_name);
-                prescriptionMap.put("doctors_name",doctors_name);
+                prescriptionMap.put("prescriptions", prescriptionList);
+//                prescriptionMap.put("medicine_name",medicine_name);
+//                prescriptionMap.put("doctors_name",doctors_name);
 
                 return new ModelAndView(prescriptionMap, "epharmacy.handlebars");
             }, new HandlebarsTemplateEngine());

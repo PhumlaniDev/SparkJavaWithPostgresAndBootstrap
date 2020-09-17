@@ -16,6 +16,7 @@
         text-shadow: 2px 2px green;
         }
 
+
     </style>
 
     <title>eHealth Care System</title>
@@ -26,24 +27,29 @@
 <div class="jumbotron text-center">
     <h4>ePharmacy</h4>
 </div>
+
 <div class="row">
-    <div class="col-6">
-        <h2>Names</h2>
-        <table class="table">
-            <thead>
+    <h2>Names</h2>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th>Patient name</th>
+            <th>Prescription body</th>
+            <th>Doctor</th>
+        </tr>
+        </thead>
+        {{#each prescriptions}}
             <tr>
-                <th>Patient name</th>
-                <th>Prescription body</th>
-                <th>Doctor</th>
+                <ul>
+                    <td>{{patientName}}</td>
+                    <td>{{medicine}}
+                    <td>{{doctorName}}</td>
+                </ul>
             </tr>
-            </thead>
-            <tr>
-                <td>{{patient_name}}</td>
-                <td>{{medicine_name}}</td>
-                <td>{{doctors_name}}</td>
-            </tr>
-        </table>
-    </div>
+        {{/each}}
+    </table>
 </div>
+
+
 </body>
 </html>
