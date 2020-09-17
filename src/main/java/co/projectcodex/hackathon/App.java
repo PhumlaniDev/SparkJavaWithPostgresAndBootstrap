@@ -1,6 +1,5 @@
 package co.projectcodex.hackathon;
 
-import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -9,7 +8,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -17,7 +15,7 @@ import static spark.Spark.*;
 public class App {
 
     static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
+        ProcessBuilder processBuilder = new ProcessBuilder() ;
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
@@ -47,17 +45,11 @@ public class App {
 
     }
 
-    static final String KOANS_DATABASE_URL = "jdbc:postgresql:spark_hbs_jdbi?username=macgyver&password=mac123";
-
-
-    public static void main(String[] args) throws URISyntaxException, SQLException {
+    public static void main(String[] args) {
 
         port(getHerokuAssignedPort());
 
-        Jdbi jdbi = getJdbiDatabaseConnection(KOANS_DATABASE_URL);
-
-        // get a handle to the database
-        Handle handle = jdbi.open();
+        Map<String, Object> appointmentsMap = new HashMap<>();
 
         get("/", (req, res) -> {
 
@@ -66,21 +58,29 @@ public class App {
 
         }, new HandlebarsTemplateEngine());
 
-        post("/eDoctor", (req, res) -> {
-
-            Map<String, Object> map = new HashMap<>();
-            return new ModelAndView(map, "eDoctor.handlebars");
-
-        }, new HandlebarsTemplateEngine());
-
         get("/eDoctor", (req, res) -> {
-
-            List<String> appointments = handle.createQuery("select * from appointments")
-                    .mapTo(String.class)
-                    .list();
 
             Map<String, Object> map = new HashMap<>();
             return new ModelAndView(map, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/eDoctor", (req, res) -> {
+
+            String firstName = req.queryParams("firstName");
+            String lastName = req.queryParams("lastName");
+            String docName = req.queryParams("docName");
+            String location = req.queryParams("location");
+
+
+
+            appointmentsMap.put("firstname", firstName);
+            appointmentsMap.put("lastName", lastName);
+            appointmentsMap.put("docName", docName);
+            appointmentsMap.put("location", location);
+
+            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
+
 
         }, new HandlebarsTemplateEngine());
 
@@ -101,26 +101,26 @@ public class App {
         post("/eLogin", (req, res) -> {
 
             // create the greeting message
-            String role = req.queryParams("role");
+            String lang = req.queryParams("language");
 
+            if (!lang.isEmpty()){
+                switch (lang) {
+                    case "IsiXhosa":
 
-                switch (role) {
-                    case "eDoctor":
-                        res.redirect("/eDoctor");
                         break;
 
-                    case "ePatient":
-                        res.redirect("/ePatient");
+                    case "English":
+
                         break;
 
-                    case "ePharmacy":
-                        res.redirect("/ePharmacy");
+                    case "TshiVenda":
+
                         break;
 
                     default:
                         break;
                 }
-
+            }
 
 
 
