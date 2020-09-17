@@ -68,15 +68,29 @@
                     </div>
                 </div>
                 <div class="col-sm">
-                    <br>
-                    <h5>Not approved</h5>
-                    <div id="list">
-                        <ul>
-                            {{#each users}}
-                                <li>{{this}} has been greeted</li>
+                    <div class="col-6">
+                        <h5>Requested</h5>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Doctor</th>
+                                <th>Location</th>
+                            </tr>
+                            </thead>
+                            {{#each requests}}
+                                <tr>
+                                    <td>{{firstName}}</td>
+                                    <td>{{lastName}}</td>
+                                    <td>{{docName}}</td>
+                                    <td>{{location}}</td>
+                                </tr>
                             {{/each}}
-                        </ul>
-                        <br>
+                        </table>
+                        <br><br>
+                        <button type="button" class="btn btn-success">Accept</button>
+                        <button type="button" class="btn btn-danger">Decline</button>
                     </div>
                 </div>
             </div>
@@ -94,7 +108,7 @@
                 <br>
                 <button type="submit" class="btn btn-primary">Prescribe</button>
             </form>
-        </div>
+            <br>
     </div>
 </div>
 </body>
