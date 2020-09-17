@@ -49,115 +49,214 @@ public class App {
 
         port(getHerokuAssignedPort());
 
-
         Map<String, Object> appointmentsMap = new HashMap<>();
-        Map<String, Object> prescriptionMap = new HashMap<>();
 
-        try {
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi");
+        /*get("/", (req, res) -> {
 
-            get("/", (req, res) -> {
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "elogin.handlebars");
+
+        }, new HandlebarsTemplateEngine());*/
+
+        get("/", (req, res) -> {
+
+            String firstName = req.queryParams("firstName");
+            String lastName = req.queryParams("lastName");
+            String docName = req.queryParams("docName");
+            String location = req.queryParams("location");
+
+
+
+            appointmentsMap.get(firstName);
+            appointmentsMap.get(lastName);
+            appointmentsMap.get(docName);
+            appointmentsMap.get(location);
+
+            return new ModelAndView(appointmentsMap, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/eDoctor", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "edoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        get("/ePatient", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "epatient.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/ePatient", (req, res) -> {
+
+
+            String firstName = req.queryParams("firstName");
+            String lastName = req.queryParams("lastName");
+            String docName = req.queryParams("docName");
+            String location = req.queryParams("location");
+
+
+
+            appointmentsMap.put("firstName", firstName);
+            appointmentsMap.put("lastName", lastName);
+            appointmentsMap.put("docName", docName);
+            appointmentsMap.put("location", location);
+
+            return new ModelAndView(appointmentsMap, "epatient.handlebars");
+
+
+        }, new HandlebarsTemplateEngine());
+
+        get("/ePharmacy", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "epharmacy.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+        post("/Login", (req, res) -> {
+
+            // create the greeting message
+            String role = req.queryParams("role");
+
+            if (!role.isEmpty()){
+                switch (role) {
+                    case "eDoctor":
+                        res.redirect("/eDoctor");
+                        break;
+
+                    case "ePatient":
+                        res.redirect("/ePatient");
+                        break;
+
+                    case "ePharmacy":
+                        res.redirect("/ePharmacy");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "elogin.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+
+        /*try  {
+
+
+            staticFiles.location("/public");
+            port(getHerokuAssignedPort());
+
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=sesethu&password=coder123");
+
+            get("/epharmacy", (req, res) -> {
 
                 Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "elogin.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-            get("/eDoctor", (req, res) -> {
-
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String docName = req.queryParams("docName");
-                String location = req.queryParams("location");
-
-                appointmentsMap.get(firstName);
-                appointmentsMap.get(lastName);
-                appointmentsMap.get(docName);
-                appointmentsMap.get(location);
-
-                return new ModelAndView(appointmentsMap, "edoctor.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-            post("/eDoctor", (req, res) -> {
-
-                String patient_name = req.queryParams("patient_name");
-                String medicine_name = req.queryParams("medicine_name");
-
-                String doctors_name = req.queryParams("doctors_name");
-
-                prescriptionMap.put("firstName", patient_name);
-                prescriptionMap.put("lastName", medicine_name);
-                prescriptionMap.put("docName", doctors_name);
-
-                return new ModelAndView(prescriptionMap, "edoctor.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-            get("/ePatient", (req, res) -> {
-
-                Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "epatient.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-            post("/ePatient", (req, res) -> {
 
 
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String docName = req.queryParams("docName");
-                String location = req.queryParams("location");
 
-                appointmentsMap.put("firstName", firstName);
-                appointmentsMap.put("lastName", lastName);
-                appointmentsMap.put("docName", docName);
-                appointmentsMap.put("location", location);
-
-                return new ModelAndView(appointmentsMap, "epatient.handlebars");
-
-
-            }, new HandlebarsTemplateEngine());
-
-            get("/ePharmacy", (req, res) -> {
-
-                Map<String, Object> map = new HashMap<>();
                 return new ModelAndView(map, "epharmacy.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
-            post("/eLogin", (req, res) -> {
 
-                // create the greeting message
-                String role = req.queryParams("role");
 
-                if (!role.isEmpty()){
-                    switch (role) {
-                        case "eDoctor":
-                            res.redirect("/eDoctor");
-                            break;
+            get("/", (req, res) -> {
 
-                        case "ePatient":
-                            res.redirect("/ePatient");
-                            break;
+                List<Person> people = jdbi.withHandle((h) -> {
+                    List<Person> thePeople = h.createQuery("select first_name, last_name, email from users")
+                            .mapToBean(Person.class)
+                            .list();
+                    return thePeople;
+                });
 
-                        case "ePharmacy":
-                            res.redirect("/ePharmacy");
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
 
                 Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "elogin.handlebars");
+                map.put("people", people);
+                map.put("data", "[2, 19, 3, 5, 2, 23]");
+                map.put("theGraphLabel", "The graph label");
+                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "epatient.handlebars");
 
             }, new HandlebarsTemplateEngine());
-        } catch (URISyntaxException | SQLException e) {
-            e.printStackTrace();
-        }
 
+
+            post("/person", (req, res) -> {
+
+                String firstName = req.queryParams("firstName");
+                String lastName = req.queryParams("lastName");
+                String email = req.queryParams("email");
+
+                jdbi.useHandle(h -> {
+                    h.execute("insert into users (first_name, last_name, email) values (?, ?, ?)",
+                            firstName,
+                            lastName,
+                            email);
+                });
+
+                res.redirect("/");
+                return "";
+            });
+
+            get("/patient_request", (req, res) -> {
+
+                List<Person> patientRequest = jdbi.withHandle((h) -> {
+                    List<Person> thePeople = h.createQuery("select docName, priorityLevel, date from patient_request")
+                            .mapToBean(Person.class)
+                            .list();
+                    return thePeople;
+                });
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("patientRequest", patientRequest);
+                map.put("data", "[2, 19, 3, 5, 2, 23]");
+                map.put("theGraphLabel", "The graph label");
+                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "epatient.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+                post("/patient_request", (req, res) -> {
+
+                String docName = req.queryParams("docName");
+                String priorityLevel = req.queryParams("priorityLevel");
+//                String date = req.queryParams("date");
+
+                Date date1 = new Date();
+
+//                if(priorityLevel.equals("low")){
+//                    priorityLevel = "Low" ;
+//                }
+//                else if (priorityLevel.equals("medium")) {
+//                    priorityLevel = "Medium";
+//                }
+//                else if (priorityLevel.equals("high")) {
+//                    priorityLevel = "High";
+//                }
+
+                jdbi.useHandle(h -> {
+                    h.execute("insert into patient_request (doc_name, priorityLevel, date) values (?, ?, ?)",
+                            docName,
+                            priorityLevel,
+                            date1);
+                });
+
+                res.redirect("/");
+                return "";
+            });
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }*/
 
     }
 }
