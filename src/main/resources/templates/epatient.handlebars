@@ -53,36 +53,38 @@
             <h2>Request Appointment</h2>
             <br>
             <form method="post" action="/patient_request">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Doctor's name</label>
-                    <input type="text" class="form-control {{firstNameInvalid}}" name="docName" placeholder="eg Dr. Gumede">
-                    <small id="emailHelp" class="form-text text-muted">What is you Doctor's name?</small>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">First name</label>
+                        <input type="text" class="form-control {{firstNameInvalid}}" name="firstName">
+                        <small id="emailHelp" class="form-text text-muted">Enter your first names</small>
+                        <div id="emailHelp" class="invalid-feedback">
+                            Please provide a valid name.
+                        </div>
+                    </div>
 
-                </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Last name</label>
+                        <input type="text" class="form-control" name="lastName">
+                        <small id="emailHelp" class="form-text text-muted">Enter your last name</small>
+                    </div>
 
-                <div class="form-group">
-                    <h2>Priority: </h2>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="low" name="priorityLevel" value="low" class="custom-control-input">
-                        <label class="custom-control-label" for="low">Low</label>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Location</label>
+                        <input type="location" class="form-control" name="location">
+                        <small id="emailHelp" class="form-text text-muted">Which area do you live in?</small>
                     </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="medium" name="priorityLevel" value="medium" class="custom-control-input">
-                        <label class="custom-control-label" for="medium">Medium</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="high" name="priorityLevel" value="high" class="custom-control-input">
-                        <label class="custom-control-label" for="high">High</label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
         </div>
     </div>
+<<<<<<< HEAD
 
     <hr>
     <hr>
 
+=======
+>>>>>>> 06fbc9f53d90eed4667d3aff9bfacab9e9532efd
 </div>
 
 <!-- Optional JavaScript -->

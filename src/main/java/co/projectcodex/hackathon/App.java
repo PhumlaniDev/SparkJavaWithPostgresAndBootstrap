@@ -73,12 +73,21 @@ public class App {
                 Map<String, Object> map = new HashMap<>();
                 return new ModelAndView(map, "patient.handlebars");
 
+
             }, new HandlebarsTemplateEngine());
 
-            get("/ePharmacy", (req, res) -> {
+        post("/eDoctor", (req, res) -> {
+
+            Map<String, Object> map = new HashMap<>();
+            return new ModelAndView(map, "eDoctor.handlebars");
+
+        }, new HandlebarsTemplateEngine());
+
+
+            post("/ePharmacy", (req, res) -> {
 
                 List<Person> fullName = jdbi.withHandle((h) ->{
-                   List<Person> theName= h.createQuery("select firstName,lastName from patients").mapToBean(Person.class).list();
+                    List<Person> theName= h.createQuery("select first_name,last_name from patients").mapToBean(Person.class).list();
 
                     return theName;
 
@@ -86,7 +95,7 @@ public class App {
 
 
                 List<Person> prescriptionBody = jdbi.withHandle((h) ->{
-                    List<Person> prescription= h.createQuery("select prescription_txt from prescriptions").mapToBean(Person.class).list();
+                    List<Person> prescription= h.createQuery("select medicine_name from prescriptions").mapToBean(Person.class).list();
 
                     return prescription;
 
@@ -94,7 +103,10 @@ public class App {
 
 
                 List<Person> doctorWhoGavePrescription = jdbi.withHandle((h) ->{
-                    List<Person> prescriptionIssuedBy= h.createQuery("select doctor").mapToBean(Person.class).list();
+                    List<Person> prescriptionIssuedBy= h.createQuery("select doctors_name from doctors" +
+                                    "join prescriptions on doctors.doctors_id=prescription.doctors_id" +
+                                    "join doctors on prescriptions.doctors_id=doctors.doctors_id"
+                            ).mapToBean(Person.class).list();
 
                     return prescriptionIssuedBy;
 
@@ -112,115 +124,40 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
 
-        /*try  {
 
 
-            staticFiles.location("/public");
-            port(getHerokuAssignedPort());
+            post("/eLogin", (req, res) -> {
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?username=sesethu&password=coder123");
+                // create the greeting message
+                String role = req.queryParams("role");
 
-            get("/epharmacy", (req, res) -> {
+
+                switch (role) {
+                    case "eDoctor":
+                        res.redirect("/eDoctor");
+                        break;
+
+                    case "ePatient":
+                        res.redirect("/ePatient");
+                        break;
+
+                    case "ePharmacy":
+                        res.redirect("/ePharmacy");
+                        break;
+
+                    default:
+                        break;
+                }
+
 
                 Map<String, Object> map = new HashMap<>();
-5
-
-
-                return new ModelAndView(map, "epharmacy.handlebars");
+                return new ModelAndView(map, "elogin.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
 
-
-            get("/", (req, res) -> {
-
-                List<Person> people = jdbi.withHandle((h) -> {
-                    List<Person> thePeople = h.createQuery("select first_name, last_name, email from users")
-                            .mapToBean(Person.class)
-                            .list();
-                    return thePeople;
-                });
-
-
-                Map<String, Object> map = new HashMap<>();
-                map.put("people", people);
-                map.put("data", "[2, 19, 3, 5, 2, 23]");
-                map.put("theGraphLabel", "The graph label");
-                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
-
-                return new ModelAndView(map, "epatient.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-
-            post("/person", (req, res) -> {
-
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String email = req.queryParams("email");
-
-                jdbi.useHandle(h -> {
-                    h.execute("insert into users (first_name, last_name, email) values (?, ?, ?)",
-                            firstName,
-                            lastName,
-                            email);
-                });
-
-                res.redirect("/");
-                return "";
-            });
-
-            get("/patient_request", (req, res) -> {
-
-                List<Person> patientRequest = jdbi.withHandle((h) -> {
-                    List<Person> thePeople = h.createQuery("select docName, priorityLevel, date from patient_request")
-                            .mapToBean(Person.class)
-                            .list();
-                    return thePeople;
-                });
-
-                Map<String, Object> map = new HashMap<>();
-                map.put("patientRequest", patientRequest);
-                map.put("data", "[2, 19, 3, 5, 2, 23]");
-                map.put("theGraphLabel", "The graph label");
-                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
-
-                return new ModelAndView(map, "epatient.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-
-                post("/patient_request", (req, res) -> {
-
-                String docName = req.queryParams("docName");
-                String priorityLevel = req.queryParams("priorityLevel");
-//                String date = req.queryParams("date");
-
-                Date date1 = new Date();
-
-//                if(priorityLevel.equals("low")){
-//                    priorityLevel = "Low" ;
-//                }
-//                else if (priorityLevel.equals("medium")) {
-//                    priorityLevel = "Medium";
-//                }
-//                else if (priorityLevel.equals("high")) {
-//                    priorityLevel = "High";
-//                }
-
-                jdbi.useHandle(h -> {
-                    h.execute("insert into patient_request (doc_name, priorityLevel, date) values (?, ?, ?)",
-                            docName,
-                            priorityLevel,
-                            date1);
-                });
-
-                res.redirect("/");
-                return "";
-            });
-
-        } */
-        }catch (Exception ex) {
+        }
+        catch (Exception ex) {
             ex.printStackTrace();
         }
 

@@ -4,11 +4,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -31,47 +29,49 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h4>eLogin</h4>
+    <h4>eHealth-Care</h4>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm">
-        </div>
-        <div class="col-sm">
-            <div class="container" style="text-align:center">
-                <br>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                    <label class="form-check-label" for="exampleRadios1">
-                        eDoctor
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                        ePatient
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                    <label class="form-check-label" for="exampleRadios3">
-                        ePharmacy
-                    </label>
-                </div>
-                <br>
-                <form action="/action_page.php">
+    <form action="/eLogin" method="post" >
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+                <div>
+                    <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="eDoctor">
+                        <label class="form-check-label" for="exampleRadios1">
+                            eDoctor
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="role" id="exampleRadios2" value="ePatient">
+                        <label class="form-check-label" for="exampleRadios2">
+                            ePatient
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="role" id="exampleRadios3" value="ePharmacy">
+                        <label class="form-check-label" for="exampleRadios3">
+                            ePharmacy
+                        </label>
+                    </div>
+                    <br>
                     <div class="form-group">
-                        <label for="email">Email address:</label>
-                        <input type="email" class="form-control" placeholder="Enter email" id="email" maxlength="10">
+                        <label for="text">Email address:</label>
+                        <input type="text" class="form-control" placeholder="Enter email" id="email" maxlength="10">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                </div>
+            </div>
+            <div class="col-sm">
             </div>
         </div>
-        <div class="col-sm">
-        </div>
-    </div>
+    </form>
+
+
 </div>
 </body>
 </html>
